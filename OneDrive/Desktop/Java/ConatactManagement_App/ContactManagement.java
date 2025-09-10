@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
-// Contact Class to store individual contact details
 class Contact {
     String name, phone, email, address;
 
@@ -21,7 +20,7 @@ class Contact {
     }
 }
 
-// Main Class for Contact Management System
+
 public class ContactManagement extends JFrame {
     private ArrayList<Contact> contacts = new ArrayList<>();
     private JList<Contact> contactList;
@@ -40,7 +39,7 @@ public class ContactManagement extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(titleLabel, BorderLayout.NORTH);
 
-        // Left Panel (Contact List)
+      
         listModel = new DefaultListModel<>();
         contactList = new JList<>(listModel);
         contactList.setFont(new Font("Monospaced", Font.PLAIN, 14));
@@ -48,7 +47,7 @@ public class ContactManagement extends JFrame {
         scrollPane.setBorder(BorderFactory.createTitledBorder("Saved Contacts"));
         add(scrollPane, BorderLayout.CENTER);
 
-        // Right Panel (Buttons)
+       
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -84,7 +83,7 @@ public class ContactManagement extends JFrame {
         setVisible(true);
     }
 
-    // Add Contact
+    
     private void addContact() {
         JTextField nameField = new JTextField();
         JTextField phoneField = new JTextField();
@@ -112,7 +111,7 @@ public class ContactManagement extends JFrame {
         }
     }
 
-    // View Contact
+    
     private void viewContact() {
         int selectedIndex = contactList.getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -123,7 +122,7 @@ public class ContactManagement extends JFrame {
         }
     }
 
-    // Update Contact
+   
     private void updateContact() {
         int selectedIndex = contactList.getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -155,7 +154,7 @@ public class ContactManagement extends JFrame {
         }
     }
 
-    // Delete Contact
+   
     private void deleteContact() {
         int selectedIndex = contactList.getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -167,7 +166,7 @@ public class ContactManagement extends JFrame {
         }
     }
 
-    // Save Contacts to File
+   
     private void saveToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter("contacts.txt"))) {
             for (Contact contact : contacts) {
