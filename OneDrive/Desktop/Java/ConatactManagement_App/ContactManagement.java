@@ -24,32 +24,47 @@ class Contact {
 // Main Class for Contact Management System
 public class ContactManagement extends JFrame {
     private ArrayList<Contact> contacts = new ArrayList<>();
-    private JList<String> contactList;
-    private DefaultListModel<String> listModel;
+    private JList<Contact> contactList;
+    private DefaultListModel<Contact> listModel;
 
     public ContactManagement() {
         // Frame Title
         super("Contact Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
-        setLayout(new BorderLayout());
+        setSize(600, 400);
+        setLayout(new BorderLayout(10, 10));
         setLocationRelativeTo(null);
+
+        JLabel titleLabel = new JLabel("Contact Management System", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(titleLabel, BorderLayout.NORTH);
 
         // Left Panel (Contact List)
         listModel = new DefaultListModel<>();
         contactList = new JList<>(listModel);
+        contactList.setFont(new Font("Monospaced", Font.PLAIN, 14));
         JScrollPane scrollPane = new JScrollPane(contactList);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Saved Contacts"));
         add(scrollPane, BorderLayout.CENTER);
 
         // Right Panel (Buttons)
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(5, 1, 5, 5));
+        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton addButton = new JButton("Add Contact");
-        JButton viewButton = new JButton("View Contact");
-        JButton updateButton = new JButton("Update Contact");
-        JButton deleteButton = new JButton("Delete Contact");
-        JButton saveButton = new JButton("Save to File");
+        JButton addButton = new JButton(" ➕ Add Contact");
+        JButton viewButton = new JButton(" 👁 View Contact");
+        JButton updateButton = new JButton(" ✏️ Update Contact");
+        JButton deleteButton = new JButton(" 🗑 Delete Contact");
+        JButton saveButton = new JButton(" 💾 Save to File");
+
+        Font btnFont = new Font("Arial", Font.BOLD, 14);
+        addButton.setFont(btnFont);
+        viewButton.setFont(btnFont);
+        updateButton.setFont(btnFont);
+        deleteButton.setFont(btnFont);
+        saveButton.setFont(btnFont);
 
         buttonPanel.add(addButton);
         buttonPanel.add(viewButton);
@@ -89,8 +104,11 @@ public class ContactManagement extends JFrame {
             String email = emailField.getText();
             String address = addressField.getText();
 
-            contacts.add(new Contact(name, phone, email, address));
-            listModel.addElement(name);
+           
+            Contact contact = new Contact(name, phone, email, address);
+            contacts.add(contact);
+            listModel.addElement(contact);  
+            JOptionPane.showMessageDialog(this, "Contact Successfully Added.");
         }
     }
 
@@ -129,7 +147,8 @@ public class ContactManagement extends JFrame {
                 contact.email = emailField.getText();
                 contact.address = addressField.getText();
 
-                listModel.set(selectedIndex, contact.name);
+                listModel.set(selectedIndex, contact);
+            JOptionPane.showMessageDialog(this, "Contact Successfully Updated.");
             }
         } else {
             JOptionPane.showMessageDialog(this, "No contact selected.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -142,6 +161,7 @@ public class ContactManagement extends JFrame {
         if (selectedIndex >= 0) {
             contacts.remove(selectedIndex);
             listModel.remove(selectedIndex);
+            JOptionPane.showMessageDialog(this, "Contact Successfully Deleted.");
         } else {
             JOptionPane.showMessageDialog(this, "No contact selected.", "Error", JOptionPane.ERROR_MESSAGE);
         }
